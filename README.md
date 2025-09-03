@@ -370,6 +370,10 @@ The following capabilities are planned and will be integrated with zoro’s exis
   - Uses list_files/read_files with optional enforcement of max_file_lines and max_total_characters.
   - When limits truncate content, zoro annotates the prompt with “[...truncated...]”.
 
+6) Support for streamed responses (seeing the chain of thought reduces stress... we've benn told)
+
+7) Support for background mode and response retrieval so no response gets lost.
+
 --------------------------------------------------------------------------------
 
 ## Examples

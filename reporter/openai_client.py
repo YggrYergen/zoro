@@ -9,7 +9,7 @@ service interface, improving testability and maintainability.
 
 The Responses API is used to generate unified diffs given a prompt
 context, while the Agents API (when needed) can be used for more
-complex, multi‑step workflows.  Only the Responses API is exercised in
+complex, multi-step workflows.  Only the Responses API is exercised in
 the MVP implementation.
 """
 
@@ -48,7 +48,7 @@ class OpenAIClient:
             raise ImportError(
                 "The 'openai' package is not installed. Please install it to use API features."
             )
-        self.client = openai.OpenAI(api_key=api_key)
+        self.client = openai.OpenAI(api_key=api_key, timeout=2160.0)
 
     def estimate_tokens(self, text: str) -> int:
         """Estimate the number of tokens used by a text for the configured model."""
@@ -122,7 +122,7 @@ class OpenAIClient:
         cost_per_output = 0.000015  # 15 USD / 1,000,000 tokens
         return input_tokens * cost_per_input + output_tokens * cost_per_output
 
-    def _poll_until_complete(self, rid: str, timeout_s: float = 999.0, interval_s: float = 55.0) -> Any:
+    def _poll_until_complete(self, rid: str, timeout_s: float = 2160.0, interval_s: float = 55.0) -> Any:
         """Poll responses.retrieve(id) until reaching a terminal status or timeout."""
         deadline = time.time() + timeout_s
         last = None
@@ -232,7 +232,7 @@ class OpenAIClient:
             "instructions": instructions,
             "input": "\n".join([msg["content"] for msg in messages]),
             "previous_response_id": previous_response_id,
-            "tools": tools or [],
+            "tools": tools or [{"type": "web_search"}],
             "max_output_tokens": max_output_tokens,
         }
         # Temperature → solo si el modelo lo soporta

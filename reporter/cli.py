@@ -340,7 +340,7 @@ def main(argv: Optional[List[str]] = None) -> int:
         if args.no_diff:
             instructions = (
                 "You are an expert assistant. Read the user's instructions and the provided project context "
-                "(system description and current codebase). Provide a clear, concise answer in text on .md formatting."
+                "(system description and current codebase). Provide a clear, concisely written but thorough answer in text on .md formatting (titles, subtitles, etc.)."
                 "Do not output or mention unified diffs. If the user's instructions are in Spanish, reply in Spanish; "
                 "otherwise reply in the same language as the instructions."
             )
