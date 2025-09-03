@@ -1,0 +1,54 @@
+diff --git a/reporter/cli.py b/reporter/cli.py
+--- a/reporter/cli.py
++++ b/reporter/cli.py
+@@ -356,6 +356,20 @@
+             )
+ 
+         # Determine output folder (same as current_step.md)
+-        output_dir = args.output.parent if args.output else Path(".")
++        output_dir = args.output.parent if args.output else Path(".")
++
++        # Helper: pick next free alphabetical diff name: a.diff, b.diff, ..., z.diff, aa.diff, ab.diff, ...
++        def _next_alpha_diff_path(base_dir: Path) -> Path:
++            def _name_for(n: int) -> str:
++                # 0->a, 1->b, ..., 25->z, 26->aa, 27->ab, ...
++                s = []
++                n0 = n
++                while True:
++                    s.append(chr(ord('a') + (n % 26)))
++                    n = n // 26 - 1
++                    if n < 0: break
++                return "".join(reversed(s)) + ".diff"
++            i = 0
++            while True:
++                candidate = base_dir / _name_for(i)
++                if not candidate.exists():
++                    return candidate
++                i += 1
+         if args.no_diff:
+             # Plain text response output
+             resp_md = output_dir / "response.md"
+@@ -368,16 +382,17 @@
+             except Exception as exc:
+                 logger.error("Failed to write text response file: %s", exc)
+                 return 1
+         else:
+-            # Write diff outputs (both, for convenience)
+-            diff_md = output_dir / "current_dif.md"
+-            diff_alt = output_dir / "o.diff"
++            # Write diff outputs:
++            # 1) Always (over)write current_diff.md
++            diff_md = output_dir / "current_diff.md"
++            # 2) Also write to the first free alphabetical file: a.diff, b.diff, c.diff, ...
++            diff_alpha = _next_alpha_diff_path(output_dir)
+             try:
+                 with diff_md.open("w", encoding="utf-8") as f:
+                     f.write(output_text or "")
+-                with diff_alt.open("w", encoding="utf-8") as f:
++                with diff_alpha.open("w", encoding="utf-8") as f:
+                     f.write(output_text or "")
+-                logger.info("Diff written to %s and %s", diff_md.resolve(), diff_alt.resolve())
++                logger.info("Diff written to %s and %s", diff_md.resolve(), diff_alpha.resolve())
+             except Exception as exc:
+                 logger.error("Failed to write diff files: %s", exc)
+                 return 1

@@ -157,7 +157,7 @@ Files created in the working directory where you run zoro:
 - current_step.md
   - The assembled prompt you can inspect, edit, and version.
 - If --call-api and default (diff-like) mode:
-  - current_dif.md and o.diff, both containing the patch output.
+  - current_dif.md and a.diff, both containing the patch output. A directory's current_diff.md gets overwritten each run; a.diff jumps to the next abailavle letter alphabetically.
 - If --call-api with --no-diff:
   - response.md containing the plain text reply from the model.
 
@@ -313,8 +313,6 @@ Outputs from API calls:
 ## Roadmap (planned next features)
 
 The following capabilities are planned and will be integrated with zoro’s existing flow. Public interfaces and flags may evolve slightly during implementation.
-
-0) new behaviour: if the intended output filename is taken when using --call-api; go alphabetically to the next possible filename. Easy way to enable parallel
 
 1) Web control surface for file selection (backed by reporter_config.json)
 - What: A local web UI that displays your repo tree and lets you include/exclude files and folders with checkboxes. Your choices persist to reporter_config.json, same schema the CLI uses today.
