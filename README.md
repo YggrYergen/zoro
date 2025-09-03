@@ -314,6 +314,8 @@ Outputs from API calls:
 
 The following capabilities are planned and will be integrated with zoro’s existing flow. Public interfaces and flags may evolve slightly during implementation.
 
+0) new behaviour: if the intended output filename is taken when using --call-api; go alphabetically to the next possible filename. Easy way to enable parallel
+
 1) Web control surface for file selection (backed by reporter_config.json)
 - What: A local web UI that displays your repo tree and lets you include/exclude files and folders with checkboxes. Your choices persist to reporter_config.json, same schema the CLI uses today.
 - Why: Faster, less error-prone than terminal prompts; supports bulk actions and previews before writing.
