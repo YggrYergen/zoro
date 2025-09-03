@@ -1,0 +1,51 @@
+# ========================
+# Windows / System files
+# ========================
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# ========================
+# Visual Studio Code
+# ========================
+.vscode/
+.history/
+*.code-workspace
+
+# ========================
+# Python
+# ========================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.egg-info/
+.env
+.venv/
+ENV/
+env/
+venv/
+
+# ========================
+# Node.js
+# ========================
+node_modules/
+npm-debug.log*
+yarn-debug.l
+
+
+# ========================
+# Dev & Work
+# ========================
+workbench/
+current_step.md
+task.md
+SRS.md
+response.md
+report_config.json
+reporter_config.json
+report.py
+report_complete.md
